@@ -21,7 +21,15 @@ app.use(express.json());
 // Ruta principal
 app.get("/", (req, res) => {
     res.status(200).json({
-        message: "API Librería Segura funcionando correctamente"
+        message: "API Pasarela Comercio Segura",
+        status: "OK",
+        version: "1.0.0",
+        endpoints: {
+            books: "/api/books",
+            users: "/api/users",
+            carts: "/api/carts",
+            orders: "/api/orders"
+        }
     });
 });
 
