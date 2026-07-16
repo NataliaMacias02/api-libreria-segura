@@ -8,6 +8,8 @@ const userRoutes = require("./src/routes/userRoutes");
 const cartRoutes = require("./src/routes/cartRoutes");
 const orderRoutes = require("./src/routes/orderRoutes");
 
+const validateToken = require("./src/middleware/validateToken");
+
 const app = express();
 
 const PORT = process.env.PORT || 5100;
@@ -21,19 +23,14 @@ app.use(express.json());
 // Ruta principal
 app.get("/", (req, res) => {
     res.status(200).json({
-        message: "API Pasarela Comercio Segura",
-        status: "OK",
-        version: "1.0.0",
-        endpoints: {
-            books: "/api/books",
-            users: "/api/users",
-            carts: "/api/carts",
-            orders: "/api/orders"
-        }
+        message: "API Librería Segura funcionando correctamente"
     });
 });
 
-// Rutas de la API
+// Middleware de autenticación para toda la API
+app.use(validateToken);
+
+// Rutas protegidas
 app.use("/api/books", bookRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/carts", cartRoutes);
